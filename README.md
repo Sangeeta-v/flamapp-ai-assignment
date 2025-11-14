@@ -1,10 +1,8 @@
-# flamapp-ai-assignment
-Assignment for Flamapp.AI first round interview
-# Flamapp.AI Assignment — <Your Name>
+# Flamapp.AI Assignment — <Sangeeta>
 
-**Repository:** https://github.com/<your-username>/flamapp-ai-assignment  
+**Repository:** https://github.com/<Sangeeta>/flamapp-ai-assignment  
 **Assignment:** Flamapp.AI — First round interview submission  
-**Last updated:** YYYY-MM-DD
+**Last updated:** 2025-11-14
 
 ---
 
@@ -28,3 +26,44 @@ A minimal proof-of-concept demonstrating an Android app + Web UI where camera fr
 ---
 
 ## 3. Repo structure
+/ (root)
+├─ android-app/ # Android Studio project (Kotlin)
+│ ├─ app/src/main/java/...
+│ ├─ app/src/main/cpp/... # native C++ files (JNI)
+│ ├─ app/src/main/jniLibs/ # prebuilt .so (optional)
+│ └─ CMakeLists.txt
+├─ web-app/ # React + TypeScript demo
+├─ docs/
+│ ├─ screenshot-1.png
+│ └─ demo.gif
+├─ README.md
+└─ link.txt # (optional) contains this repo URL for form upload
+
+
+---
+
+## 4. Architecture & frame flow
+**High level**
+- **Android UI (Kotlin)** → **CameraX** captures frames → **JNI** bridge (`processFrame(byte[] data, int w, int h)`) → **Native C++ (NDK)** uses OpenCV (`cv::Mat`) to process → processed bytes/bitmap returned → UI displays processed image.
+
+**Frame flow**
+1. CameraX → `ImageProxy` → convert to NV21/RGBA bytes  
+2. Kotlin calls `native processFrame(...)`  
+3. C++: `jbyteArray` → `cv::Mat` → process → encode to RGBA bytes → return `jbyteArray`  
+4. Kotlin: bytes → Bitmap → ImageView
+
+---
+
+## 5. Android setup (build & run)
+**Prerequisites**
+- Android Studio (Arctic Fox or later)
+- JDK (bundled with Android Studio)
+- NDK (install via SDK Manager) — recommended NDK r25+
+- CMake (install via SDK Manager)
+- OpenCV Android SDK
+
+**Steps**
+1. Clone:
+   ```bash
+   git clone https://github.com/<your-username>/flamapp-ai-assignment.git
+   cd flamapp-ai-assignment/android-app
