@@ -65,5 +65,5 @@ A minimal proof-of-concept demonstrating an Android app + Web UI where camera fr
 **Steps**
 1. Clone:
    ```bash
-   git clone https://github.com/<your-username>/flamapp-ai-assignment.git
+   git clone https://github.com/<Sangeeta>/flamapp-ai-assignment.git
    cd flamapp-ai-assignment/android-app
